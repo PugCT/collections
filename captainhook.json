@@ -1,0 +1,22 @@
+{
+  "pre-push": {
+    "enabled": true,
+    "actions": [
+      {
+        "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting",
+        "options": [],
+        "conditions": []
+      },
+      {
+        "action": "make php_cs_fixer",
+        "options": [],
+        "conditions": []
+      },
+      {
+        "action": "make analyze",
+        "options": [],
+        "conditions": []
+      }
+    ]
+  }
+}
