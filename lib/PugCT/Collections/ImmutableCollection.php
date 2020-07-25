@@ -78,4 +78,54 @@ interface ImmutableCollection extends \Countable, \IteratorAggregate, \ArrayAcce
      * @psalm-param TKey $key
      */
     public function containsKey($key): bool;
+
+    /**
+     * Gets the element at the specified key/index.
+     *
+     * @param string|int $key the key/index of the element to retrieve
+     *
+     * @return mixed
+     *
+     * @psalm-param TKey $key
+     * @psalm-return T|null
+     */
+    public function get($key);
+
+    /**
+     * Gets all keys/indices of the collection.
+     *
+     * @return int[]|string[] the keys/indices of the collection
+     *
+     * @psalm-return TKey[]
+     */
+    public function getKeys(): array;
+
+    /**
+     * Gets all values of the collection.
+     *
+     * @return array the values of all elements in the collection
+     *
+     * @psalm-return T[]
+     */
+    public function getValues(): array;
+
+    /**
+     * Sets an element in the collection at the specified key/index.
+     *
+     * @param string|int $key   the key/index of the element to set
+     * @param mixed      $value the element to set
+     *
+     * @return ImmutableCollection new collection with the element setted
+     *
+     * @psalm-param TKey $key
+     * @psalm-param T $value
+     */
+    public function set($key, $value): self;
+
+    /**
+     * Gets a native PHP array representation of the collection.
+     *
+     * @psalm-return array<TKey,T>
+     */
+    public function toArray(): array;
 }

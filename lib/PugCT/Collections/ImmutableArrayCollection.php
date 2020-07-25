@@ -59,10 +59,10 @@ class ImmutableArrayCollection implements ImmutableCollection
 
     public function add($element): ImmutableCollection
     {
-        $elements = $this->elements->toArray();
-        $elements[] = $element;
+        $elements = clone $this->elements;
+        $elements->add($element);
 
-        return new self($elements);
+        return self::fromArrayCollection($elements);
     }
 
     public function clear(): ImmutableCollection
@@ -82,24 +82,58 @@ class ImmutableArrayCollection implements ImmutableCollection
 
     public function remove($key): ImmutableCollection
     {
-        $removeAt = function ($index) use ($key) {
-            return $index !== $key;
-        };
+        $elements = clone $this->elements;
+        $elements->remove($key);
 
-        return new self(array_filter($this->elements->toArray(), $removeAt, ARRAY_FILTER_USE_KEY));
+        return self::fromArrayCollection($elements);
     }
 
     public function removeElement($element): ImmutableCollection
     {
-        $removeFrom = function ($value) use ($element) {
-            return $value !== $element;
-        };
+        $elements = clone $this->elements;
+        $elements->removeElement($element);
 
-        return new self(array_filter($this->elements->toArray(), $removeFrom));
+        return self::fromArrayCollection($elements);
     }
 
     public function containsKey($key): bool
     {
         return $this->elements->containsKey($key);
+    }
+
+    public function get($key)
+    {
+        return $this->elements->get($key);
+    }
+
+    public function getKeys(): array
+    {
+        return $this->elements->getKeys();
+    }
+
+    public function getValues(): array
+    {
+        return $this->elements->getValues();
+    }
+
+    public function set($key, $value): ImmutableCollection
+    {
+        $elements = clone $this->elements;
+        $elements->set($key, $value);
+
+        return self::fromArrayCollection($elements);
+    }
+
+    public function toArray(): array
+    {
+        return $this->elements->toArray();
+    }
+
+    private static function fromArrayCollection(ArrayCollection $elements): ImmutableCollection
+    {
+        $instance = new self();
+        $instance->elements = $elements;
+
+        return $instance;
     }
 }
