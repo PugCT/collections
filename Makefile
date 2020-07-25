@@ -12,5 +12,5 @@ psalm: ## Run psalm analysis tool
 phpunit: ## Run unit tests
 	php vendor/bin/phpunit --testdox tests --coverage-html build/coverage-report
 
-analize: ## Run all analysis and tests tools
+analyze: ## Run all analysis and tests tools
 	make psalm && make phpunit
