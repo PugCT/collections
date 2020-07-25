@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PugCT\Common\Collections;
+namespace PugCT\Tests\Collections;
 
 use PHPUnit\Framework\TestCase;
+use PugCT\Collections\ImmutableArrayCollection;
 
 class ImmutableArrayCollectionTest extends TestCase
 {
-
     /**
      * @test
      * @dataProvider provideElements
@@ -135,18 +135,18 @@ class ImmutableArrayCollectionTest extends TestCase
         self::assertFalse($collection->containsKey('non-existent'));
     }
 
+    public function provideElements(): array
+    {
+        return [
+            'elements' => [[1, 'A' => 'a', 2, 'null' => null, 3, 'A2' => 'a2', 'zero' => 0]],
+        ];
+    }
+
     private function assertBothCollectionsAreNotEqual(
         ImmutableArrayCollection $newCollection,
         ImmutableArrayCollection $collection
     ): void {
         self::assertInstanceOf(ImmutableArrayCollection::class, $newCollection);
         self::assertNotEquals($newCollection, $collection);
-    }
-
-    public function provideElements(): array
-    {
-        return [
-            'elements' => [[1, 'A' => 'a', 2, 'null' => null, 3, 'A2' => 'a2', 'zero' => 0]],
-        ];
     }
 }

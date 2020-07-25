@@ -2,19 +2,17 @@
 
 declare(strict_types=1);
 
-namespace PugCT\Common\Collections;
+namespace PugCT\Collections;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @phpstan-template TKey
  * @template TKey of array-key
  * @template T
  * @template-implements ImmutableCollection<TKey, T>
  */
 class ImmutableArrayCollection implements ImmutableCollection
 {
-
     /**
      * @var ArrayCollection
      * @psalm-var ArrayCollection<TKey, T>
@@ -22,8 +20,6 @@ class ImmutableArrayCollection implements ImmutableCollection
     private $elements;
 
     /**
-     * @param array $elements
-     *
      * @psalm-param array<TKey, T> $elements
      */
     public function __construct(array $elements = [])
@@ -31,27 +27,27 @@ class ImmutableArrayCollection implements ImmutableCollection
         $this->elements = new ArrayCollection($elements);
     }
 
-    public function getIterator()
+    public function getIterator(): void
     {
         // TODO: Implement getIterator() method.
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): void
     {
         // TODO: Implement offsetExists() method.
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): void
     {
         // TODO: Implement offsetGet() method.
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         // TODO: Implement offsetSet() method.
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         // TODO: Implement offsetUnset() method.
     }

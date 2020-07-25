@@ -2,22 +2,20 @@
 
 declare(strict_types=1);
 
-namespace PugCT\Common\Collections;
+namespace PugCT\Collections;
 
 /**
- * @phpstan-template TKey
  * @template TKey of array-key
  * @template T
  */
 interface ImmutableCollection extends \Countable, \IteratorAggregate, \ArrayAccess
 {
-
     /**
      * Adds an element at the end of the collection.
      *
-     * @param mixed $element The element to add.
+     * @param mixed $element the element to add
      *
-     * @return ImmutableCollection New collection with the element added.
+     * @return ImmutableCollection new collection with the element added
      *
      * @psalm-param T $element
      */
@@ -26,16 +24,16 @@ interface ImmutableCollection extends \Countable, \IteratorAggregate, \ArrayAcce
     /**
      * Clears the collection, removing all elements.
      *
-     * @return ImmutableCollection New empty collection.
+     * @return ImmutableCollection new empty collection
      */
     public function clear(): self;
 
     /**
      * Checks whether an element is contained in the collection.
      *
-     * @param mixed $element The element to search for.
+     * @param mixed $element the element to search for
      *
-     * @return bool TRUE if the collection contains the element, FALSE otherwise.
+     * @return bool TRUE if the collection contains the element, FALSE otherwise
      *
      * @psalm-param T $element
      */
@@ -44,16 +42,16 @@ interface ImmutableCollection extends \Countable, \IteratorAggregate, \ArrayAcce
     /**
      * Checks whether the collection is empty (contains no elements).
      *
-     * @return bool TRUE if the collection is empty, FALSE otherwise.
+     * @return bool TRUE if the collection is empty, FALSE otherwise
      */
     public function isEmpty(): bool;
 
     /**
      * Removes the element at the specified index from the collection.
      *
-     * @param string|int $key The key/index of the element to remove.
+     * @param string|int $key the key/index of the element to remove
      *
-     * @return ImmutableCollection New collection with the element removed.
+     * @return ImmutableCollection new collection with the element removed
      *
      * @psalm-param TKey $key
      */
@@ -62,9 +60,9 @@ interface ImmutableCollection extends \Countable, \IteratorAggregate, \ArrayAcce
     /**
      * Removes the specified element from the collection, if it is found.
      *
-     * @param mixed $element The element to remove.
+     * @param mixed $element the element to remove
      *
-     * @return ImmutableCollection New collection with the element removed.
+     * @return ImmutableCollection new collection with the element removed
      *
      * @psalm-param T $element
      */
@@ -73,9 +71,9 @@ interface ImmutableCollection extends \Countable, \IteratorAggregate, \ArrayAcce
     /**
      * Checks whether the collection contains an element with the specified key/index.
      *
-     * @param string|int $key The key/index to check for.
+     * @param string|int $key the key/index to check for
      *
-     * @return bool TRUE if the collection contains an element with the specified key/index, FALSE otherwise.
+     * @return bool TRUE if the collection contains an element with the specified key/index, FALSE otherwise
      *
      * @psalm-param TKey $key
      */
