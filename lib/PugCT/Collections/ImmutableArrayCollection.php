@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PugCT\Collections;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @template TKey of array-key
@@ -14,8 +15,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 class ImmutableArrayCollection implements ImmutableCollection
 {
     /**
-     * @var ArrayCollection
-     * @psalm-var ArrayCollection<TKey, T>
+     * @var Collection
+     * @psalm-var Collection<TKey, T>
      */
     private $elements;
 
@@ -27,29 +28,9 @@ class ImmutableArrayCollection implements ImmutableCollection
         $this->elements = new ArrayCollection($elements);
     }
 
-    public function getIterator(): void
+    public function getIterator(): \Traversable
     {
-        // TODO: Implement getIterator() method.
-    }
-
-    public function offsetExists($offset): void
-    {
-        // TODO: Implement offsetExists() method.
-    }
-
-    public function offsetGet($offset): void
-    {
-        // TODO: Implement offsetGet() method.
-    }
-
-    public function offsetSet($offset, $value): void
-    {
-        // TODO: Implement offsetSet() method.
-    }
-
-    public function offsetUnset($offset): void
-    {
-        // TODO: Implement offsetUnset() method.
+        return $this->elements->getIterator();
     }
 
     public function count(): int
@@ -129,7 +110,69 @@ class ImmutableArrayCollection implements ImmutableCollection
         return $this->elements->toArray();
     }
 
-    private static function fromArrayCollection(ArrayCollection $elements): ImmutableCollection
+    public function first()
+    {
+        return $this->elements->first();
+    }
+
+    public function last()
+    {
+        return $this->elements->last();
+    }
+
+    public function key()
+    {
+        return $this->elements->key();
+    }
+
+    public function current()
+    {
+        return $this->elements->current();
+    }
+
+    public function next()
+    {
+        return $this->elements->next();
+    }
+
+    public function exists(\Closure $p): bool
+    {
+        return $this->elements->exists($p);
+    }
+
+    public function filter(\Closure $p): ImmutableCollection
+    {
+        return self::fromArrayCollection($this->elements->filter($p));
+    }
+
+    public function forAll(\Closure $p): bool
+    {
+        return $this->elements->forAll($p);
+    }
+
+    public function map(\Closure $func): ImmutableCollection
+    {
+        return self::fromArrayCollection($this->elements->map($func));
+    }
+
+    public function partition(\Closure $p): array
+    {
+        $partition = $this->elements->partition($p);
+
+        return [self::fromArrayCollection($partition[0]), self::fromArrayCollection($partition[1])];
+    }
+
+    public function indexOf($element)
+    {
+        return $this->elements->indexOf($element);
+    }
+
+    public function slice(int $offset, int $length = null): array
+    {
+        return $this->elements->slice($offset, $length);
+    }
+
+    private static function fromArrayCollection(Collection $elements): ImmutableCollection
     {
         $instance = new self();
         $instance->elements = $elements;
