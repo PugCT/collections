@@ -2,3 +2,5 @@
 .php_cs.cache
 /vendor/
 /build/
+infection.log
+per-mutator.md

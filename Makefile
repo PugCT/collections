@@ -12,5 +12,8 @@ psalm: ## Run psalm analysis tool
 phpunit: ## Run unit tests
 	php vendor/bin/phpunit --testdox tests --coverage-html build/coverage-report
 
-analyze: ## Run all analysis and tests tools
-	make psalm && make phpunit
+infection: ## Run mutation tests
+	infection --threads=4 --log-verbosity=all
+
+analyze: ## Run all analysis and test tools
+	make psalm && make phpunit && make infection

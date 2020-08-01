@@ -1,0 +1,16 @@
+{
+  "source": {
+    "directories": [
+      "lib\/PugCT"
+    ]
+  },
+  "logs": {
+    "text": "infection.log",
+    "perMutator": "per-mutator.md"
+  },
+  "minMsi": 100,
+  "minCoveredMsi": 100,
+  "mutators": {
+    "@default": true
+  }
+}
