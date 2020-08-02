@@ -7,7 +7,7 @@ php_cs_fixer: ## Run php-cs-fixer
 	php-cs-fixer fix
 
 psalm: ## Run psalm analysis tool
-	php vendor/bin/psalm
+	php vendor/bin/psalm  --report=checkstyle.json
 
 phpunit: ## Run unit tests
 	php vendor/bin/phpunit --testdox tests --coverage-html build/coverage-report
