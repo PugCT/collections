@@ -29,6 +29,8 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: --config=.php_cs.dist
 
       - name: Run all analysis and test tools
         run: make analyze

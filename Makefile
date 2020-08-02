@@ -13,7 +13,7 @@ phpunit: ## Run unit tests
 	php vendor/bin/phpunit --testdox tests --coverage-html build/coverage-report
 
 infection: ## Run mutation tests
-	infection --threads=4 --log-verbosity=all
+	php infection.phar --threads=4 --log-verbosity=all
 
 analyze: ## Run all analysis and test tools
 	make psalm && make phpunit && make infection
