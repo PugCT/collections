@@ -1,0 +1,52 @@
+name: Main
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - uses: docker://oskarstark/php-cs-fixer-ga
+
+      - name: Run all analysis and test tools
+        run: make analyze
+
+      - name: Archive psalm report
+        uses: actions/upload-artifact@v2
+        with:
+          name: checkstyle.json
+          path: checkstyle.json
+
+      - name: Archive infection report
+        uses: actions/upload-artifact@v2
+        with:
+          name: infection.log
+          path: infection.log
+
+      - name: Archive per-mutator report
+        uses: actions/upload-artifact@v2
+        with:
+          name: per-mutator.md
+          path: per-mutator.md
